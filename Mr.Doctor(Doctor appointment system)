@@ -1,0 +1,391 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<windows.h>
+#include<string.h>
+#include<malloc.h>
+typedef struct information
+{
+    char chamber[40];
+    int age;
+    char pa_name[50];
+    char phone_number[16];
+    char Do_name [50];
+    struct information *next;
+}info;
+
+typedef struct Queue
+{
+    info *front, *rear;
+}Q;
+
+info doctor;
+
+void input(Q **p, info *patient)
+{
+    info *tamp=(info*)malloc(sizeof(info));
+    strcpy(tamp->pa_name,patient->pa_name);
+    tamp->age = patient->age;
+    strcpy(tamp->phone_number,patient->phone_number);
+    strcpy(tamp->Do_name,patient->Do_name);
+    strcpy(tamp->chamber,patient->chamber);
+    tamp->next = NULL;
+    if(((*p)->front == NULL)&&((*p)->rear == NULL))
+    {
+        (*p)->front = tamp;
+        (*p)->rear = tamp;
+        return;
+    }
+    else
+    {
+        ((*p)->rear)->next = tamp;
+        (*p)->rear = tamp;
+    }
+}
+
+void output(Q **p)
+{
+    int password;
+    system("cls");
+    printf("Give Your Password : ");
+    scanf("%d",&password);
+    if(password==1234)
+    {
+        system("cls");
+        printf("List of Patient :\n");
+        printf("1.  Rony          25      +88017     Dr.Faizul");
+        if((*p)->front == NULL)
+        {
+            (*p)->rear = NULL;
+            return;
+        }
+        else
+        {
+            info  *tamp= (*p)->front;
+            (*p)->front = ((*p)->front)-> next;
+            info *v = tamp;
+            free(tamp);
+            printf("\n2.  %s           ",v->pa_name);
+            fflush(stdin);
+            printf("%d      ",v->age);
+            printf("%s        ",v->phone_number);
+            fflush(stdin);
+            printf("%s\n\n\n",v->Do_name);
+        }
+    }
+    else
+    {
+        printf("You Have Enter a Wrong-Password!!");
+    }
+
+
+}
+
+
+void patient(info *pa)
+{
+    system("cls");
+    printf("\nGive Your Information\n");
+    printf("Name         : ");
+    scanf("%s",&pa->pa_name);
+    printf("Age          : ");
+    scanf("%d",&pa->age);
+    printf("Phone Number : ");
+    scanf("%s",&pa->phone_number);
+}
+
+void doctor_type()
+{
+    system("cls");
+    printf("What Type Of Doctor Do you want\n");
+    printf("    1. Medicine Specialist\n");
+    printf("    2. Neurologist\n");
+    printf("    3. Cancer Specialist\n");
+}
+
+void doc_list(int spec_num)
+{
+     system("cls");
+    switch(spec_num)
+    {
+        case 1:
+            printf(" List Of Medicine Specialist:\n\n");
+            printf("    1. Prof Dr. R. K. Saha\n");
+            printf("    2. Dr. Abu Reza Mohammad Nooruzzaman\n");
+            printf("    3. Dr. Afsana Begum\n");
+            break;
+
+        case 2:
+            printf(" List Of Neurologist:\n\n");
+            printf("    1. Dr. Masud Anwar\n");
+            printf("    2. Dr. Moududul Haque\n");
+            printf("    3. Dr. S I M Khairun Nabi Khan\n");
+            break;
+        case 3:
+            printf(" List Of Cancer Specialist:\n\n");
+            printf("    1. PROFESSOR DR. MD. YEAQUB ALI\n");
+            printf("    2. Prof. Dr. Sarwar Alam\n");
+            break;
+    }
+}
+
+void Med_spec_details(int number,info *doctor)
+{
+
+    switch (number)
+    {
+
+    case 1:
+        strcpy(doctor->Do_name,"Prof Dr. R. K. Saha");
+        fflush(stdin);
+        strcpy(doctor->chamber,"United Hospital Limited");
+        printf("        %s   \n\n",doctor->Do_name);
+        printf("  Qualification  : MBBS, FCPS\n");
+        printf("  Designation    : Specialist\n");
+        printf("  Expertise      : Internal Medicine\n");
+        printf("  Visiting Hour  : SAT/TUES (8 AM - 1 PM)\n");
+        printf("  Chamber        : %s\n",doctor->chamber);
+        printf("  Location       : Plot # 15, Road # 71, Gulshan - 2, Dhaka - 1212, Bangladesh");
+        printf("\n\n");
+        break;
+
+    case 2:
+        strcpy(doctor->Do_name,"Dr. Abu Reza Mohammad Nooruzzaman");
+        fflush(stdin);
+        strcpy(doctor->chamber,"SQUARE Hospitals Ltd.");
+        printf("        %s \n\n",doctor->Do_name);
+        printf("  Designation    : Consultant\n");
+        printf("  Expertise      : Internal Medicine\n");
+        printf("  Visiting Hour  : SUN/MON (8 AM - 1 PM)\n");
+        printf("  Chamber        : %s \n",doctor->chamber);
+        printf("  Location       : 18/F West Panthapath, Dhaka - 1205, Bangladesh.\n");
+        printf("  Phone          : +880-2-8159457, 8142431, 8141522, 8144400, 8142333 \n");
+        printf("  email          : drnzaman@squarehospital.com");
+        printf("\n\n");
+        break;
+
+    case 3:
+        strcpy(doctor->Do_name,"Dr. Afsana Begum");
+        fflush(stdin);
+        strcpy(doctor->chamber,"United Hospital Limited");
+        printf("        %s \n\n",doctor->Do_name);
+        printf("  Qualification  : MBBS, FCPS\n");
+        printf("  Designation    : Specialist\n");
+        printf("  Expertise      : Internal Medicine\n");
+        printf("  Visiting Hour  : THURS/FRI (8 AM - 12 PM)\n");
+        printf("  Chamber        : %s \n",doctor->chamber);
+        printf("  Location       : Plot # 15, Road # 71, Gulshan - 2, Dhaka - 1212, Bangladesh");
+        printf("\n\n");
+        break;
+
+
+    }
+}
+void Nuero_details(int number,info *doctor)
+{
+    switch (number)
+    {
+    case 1:
+        strcpy(doctor->Do_name,"Dr. Masud Anwar");
+        fflush(stdin);
+        strcpy(doctor->chamber,"Labaid Specialized Hospital Dhanmondi");
+        printf("        %s   \n\n",doctor->Do_name);
+        printf("  Qualification  : MBBS, FCPS, MS(Neurosurgery)\n");
+        printf("  Designation    : Specialist\n");
+        printf("  Expertise      : Neurosurgery\n");
+        printf("  Visiting Hour  : 9.00 am - 9.00 pm, Friday Closed\n");
+        printf("  Chamber        : %s \n",doctor->chamber);
+        printf("  Location       : Plot # 15, Road # 71, Dhanmondi - 2, Dhaka - 1212, Bangladesh");
+        printf("\n\n");
+        break;
+
+    case 2:
+        strcpy(doctor->Do_name,"Dr. Moududul Haque");
+        fflush(stdin);
+        strcpy(doctor->chamber,"Labaid Specialized Hospital, Dhanmondi");
+        printf("        %s \n\n",doctor->Do_name);
+        printf("  Qualification  : MBBS,MD,PhD(MS) Neurosurgery. Fellow Spinal Surgery NUH Singapore WHO Fellow Vascular Neurosurgery\n\n");
+        printf("  Designation    : Specialist\n");
+        printf("  Visiting Hour  : SUN/MON (8 AM - 1 PM)\n");
+        printf("  Chamber        : %s\n",doctor->chamber);
+        printf("  Location       : 18/F West Panthapath, Dhaka - 1205, Bangladesh.\n");
+        printf("  Phone          : +880-2-8159457, 8142431, 8141522, 8144400, 8142333 \n");
+        printf("  email          : drnzaman@squarehospital.com");
+        printf("\n\n");
+        break;
+
+    case 3:
+        strcpy(doctor->Do_name,"Dr. S I M Khairun Nabi Khan");
+        fflush(stdin);
+        strcpy(doctor->chamber,"Labaid Specialized Hospital, Dhanmondi");
+        printf("        %s \n\n",doctor->Do_name);
+        printf("  Qualification  : MBBS, MS(Neurosurgery)\n");
+        printf("  Designation    : Specialist\n");
+        printf("  Expertise      : Neurosurgery\n");
+        printf("  Visiting Hour  : 7.30 pm - 9.00 pm, Friday & Govt. Holiday Closed\n");
+        printf("  Chamber        : %s\n",doctor->chamber);
+        printf("  Location       : Plot # 15, Road # 71, Dhanmondi - 2, Dhaka - 1212, Bangladesh");
+        printf("\n\n");
+        break;
+
+
+    }
+}
+void Cancer_spe_details(int number,info *doctor)
+{
+    switch (number)
+    {
+    case 1:
+        strcpy(doctor->Do_name,"PROFESSOR DR. MD. YEAQUB ALI");
+        fflush(stdin);
+        strcpy(doctor->chamber,"Alraji Hospital");
+        printf("        %s  \n\n",doctor->Do_name);
+        printf("  Qualification  : MBBS, FCPS( Radiotherapy), FRSH ( London), IAEA Fellowship(Radiotherapy)\n");
+        printf("  Designation    : Oncologist\n");
+        printf("  Expertise      : Tumour and Cancer\n");
+        printf("  Visiting Hour  : 6 to 8;30 P.M,  (Sat-Thus)\n");
+        printf("  Chamber        : %s\n",doctor->chamber);
+        printf("  Location       : Address: 12, Farm Gate, Dhaka-1215.");
+        printf("\n\n");
+        break;
+
+    case 2:
+        strcpy(doctor->Do_name,"Prof. Dr. Sarwar Alam");
+        fflush(stdin);
+        strcpy(doctor->chamber,"Health & Hope Hospital Ltd.");
+        printf("       %s   \n\n",doctor->Do_name);
+        printf("  Qualification  : MBBS, DIH ( DU ), MPhil ( Oncology )\n");
+        printf("  Designation    : Oncology Specialist\n");
+        printf("  Expertise      : Cancer\n\n");
+        printf("  Visiting Hour  : SUN/MON (8 AM - 1 PM)\n\n");
+        printf("  Chamber        : %s\n",doctor->chamber);
+        printf("  Location       : 152/1-H, Green Road, Panthapath, Dhaka – 1205, Bangladesh\n");
+        printf("  Phone          : +880-2-9145786, 9137076, 01819494530 ( Chamber ) \n");
+        printf("\n\n");
+        break;
+
+    }
+}
+
+int main()
+{
+    int enter,choice,spec_num,nex,m;
+    int num;
+    info pa;
+    Q *p;
+    p=(Q*)malloc(sizeof(Q));
+    p->front = NULL;
+    p->rear = NULL;
+    printf("\n\n\n\n                                        ---------Welcome---------     \n\n ");
+    printf("\n                                                   To      \n");
+    printf("\n\n                                       ---------MR.DOCTOR---------\n\n");
+    printf("\nPress 0 for continue\n");
+    printf("\nEnter Your choice : ");
+    scanf("%d",&enter);
+    if(enter==0)
+    {
+        label1_login:
+        system("cls");
+        printf("Login As:\n");
+        printf("    1. Patient");
+        printf("\n    2. Admin Panel\n");
+        printf("\nEnter Your choice : ");
+        scanf("%d",&choice);
+        if(choice == 1)
+        {
+            label2_doc:
+            doctor_type();
+            printf("\nEnter Your choice : ");
+            scanf("%d",&spec_num);
+            label3_lis:
+            doc_list(spec_num);
+            printf("\n'Press 0 to Go-back'\n");
+            printf("\nEnter Your choice : ");
+            scanf("%d",&num);
+            if(num == 0)
+            {
+
+                goto label2_doc;
+            }
+            else
+            {
+                switch(spec_num)
+                {
+                    case 1:
+                        system("cls");
+                        Med_spec_details(num,&pa);
+                        pa.Do_name;
+                        break;
+                    case 2:
+                        system("cls");
+                        Nuero_details(num,&doctor);
+                        pa.Do_name;
+                        break;
+                    case 3:
+                        system("cls");
+                        Cancer_spe_details(num,&doctor);
+                        pa.Do_name;
+                        break;
+                }
+            }
+
+            printf("\nDo You Want to make A apointment:\n 1. Yes\n 2. No(Go-back)\n");
+            printf("\nEnter Your choice : ");
+            scanf("%d",&nex);
+            if (nex==1)
+            {
+                patient(&pa);
+                input(&p,&pa);
+                system("cls");
+                printf("\n\n\n\n                You Have Successfully Complete Your Appointment !!!!!!!!!           \n\n");
+                printf("\n\nIf You Want to Go Admin-Panel Press 1 or press 0 for exit !!!");
+                printf("\nEnter Your choice:");
+                scanf("%d",&m);
+                if(m==1)
+                {
+                    output(&p);
+                    printf("\n\n\n");
+                    printf("If You Want to Go-back to Login-Panel Press 1 or press 0 for exit !!!");
+                    printf("\nEnter Your choice : ");
+                    int r;
+                    scanf("%d",&r);
+                    if(r==1)
+                    {
+                        goto label1_login;
+                    }
+                }
+
+            }
+            else if(nex==2)
+            {
+                goto label3_lis;
+            }
+
+        }
+        else if(choice==2)
+        {
+            output(&p);
+            printf("\n\n\n");
+            printf("If You Want to Go-back to Login-Panel Press 1 or press 0 for exit !!!");
+            printf("\nEnter Your choice : ");
+            int r;
+            scanf("%d",&r);
+            if(r==1)
+            {
+                goto label1_login;
+            }
+
+        }
+        else
+        {
+            system("cls");
+            printf("\n\n\n\n          You have Enter a wrong Number!!!!!!!!      \n\n\n\n\n ");
+        }
+    }
+    else
+        {
+            system("cls");
+            printf("\n\n\n\n          You have Enter a wrong Number!!!!!!!!      \n\n\n\n\n ");
+        }
+
+return 0;
+}
